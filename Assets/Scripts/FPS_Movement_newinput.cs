@@ -13,6 +13,8 @@ public class FPS_Movement_newinput : MonoBehaviour
     public bool isJumping;
     public bool isGrounded;
     public bool canMove;
+    public bool paused;
+
     Rigidbody rbRef;
     Vector2 InputVector;
     Vector3 MoveDirection;
@@ -20,8 +22,16 @@ public class FPS_Movement_newinput : MonoBehaviour
     public float Health;
     public Text HealthIndicator;
 
+    public readonly float YMovementHash = Animator.StringToHash("YMovement");
+    public Animator animController;
+
+    public GameObject PauseMenu;
+
+
     void Start()
     {
+        
+        
         rbRef = GetComponent<Rigidbody>();
         
         HealthIndicator.GetComponent<Text>().text = Health.ToString();
@@ -29,6 +39,8 @@ public class FPS_Movement_newinput : MonoBehaviour
         isJumping = false;
         isRunning = false;
         canMove = true;
+        paused = false;
+    
     }
 
 
@@ -72,12 +84,12 @@ public class FPS_Movement_newinput : MonoBehaviour
 
 
 
-
             // make movement vector
             Vector3 movement = MoveDirection * (CurrentSpeed * Time.deltaTime);
 
             // apply movement
             transform.position += movement;
+
 
             // rbRef.MovePosition(transform.position + movement * 10);
 
@@ -92,6 +104,16 @@ public class FPS_Movement_newinput : MonoBehaviour
         // get input vector from input value
         InputVector = value.Get<Vector2>();
 
+        if (InputVector.y > 0)
+        {
+            animController.SetFloat("YMovement", InputVector.y * 0.25f);
+        }
+        else
+        {
+            animController.SetFloat("YMovement", InputVector.y * 0.5f);
+        }
+
+        animController.SetFloat("XMovement", InputVector.x * 0.5f);
 
 
         // print(MoveDirection);
@@ -105,12 +127,17 @@ public class FPS_Movement_newinput : MonoBehaviour
         if (input.Get().ToString()=="1")
         {
             isRunning = true;
-            // PlayerAnimator.SetBool(RunHash, PController.IsRunning);
+            if(InputVector.y>0)
+            {
+                animController.SetFloat("YMovement", 0.5f);
+
+            }
         }
         else
         {
             isRunning = false;
-            // PlayerAnimator.SetBool(RunHash, PController.IsRunning);
+            animController.SetFloat("YMovement", 0.25f);
+
         }
     }
 
@@ -167,20 +194,45 @@ public class FPS_Movement_newinput : MonoBehaviour
     }
 
 
-
-    void respwawn()
+    void OnPause()
     {
-        if (Health > 0)
+        if (!paused)
         {
-            // reduce health
-            Health -= 20f;
-            HealthIndicator.GetComponent<Text>().text = Health.ToString();
-            
+            paused = true;
+            PauseMenu.SetActive(true);
+            GetComponent<FPS_Camera_newinput>().SetCameraFreeze();
         }
         else
         {
-            // Restart
+            paused = false;
+            PauseMenu.SetActive(false);
+            GetComponent<FPS_Camera_newinput>().SetCameraMove();
+
+
         }
+        print(paused);
+    }
+
+
+
+
+
+
+
+
+    void respwawn()
+    {
+        // if (Health > 0)
+        // {
+        //     // reduce health
+        //     Health -= 20f;
+        //     HealthIndicator.GetComponent<Text>().text = Health.ToString();
+            
+        // }
+        // else
+        // {
+        //     // Restart
+        // }
 
         // reset all platform material
         var tempArray = GameObject.FindGameObjectsWithTag("Platform");
@@ -199,6 +251,7 @@ public class FPS_Movement_newinput : MonoBehaviour
         transform.position = GameObject.FindGameObjectWithTag("SpawnPoint").transform.position;
         transform.rotation = Quaternion.Euler(0,0,0);
     }
+
 
 
 

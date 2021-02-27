@@ -17,4 +17,27 @@ public class MenuButtonBehavior : MonoBehaviour
         print("QuitGame");
         Application.Quit();
     }
+
+
+
+    public void OnRestartGamePressed()
+    {
+        SceneManager.LoadScene("GameScene");
+        
+    }
+
+
+    public void OnMainMenuPressed()
+    {
+        SceneManager.LoadScene("Menu");
+
+    }
+
+
+    public void OnResumeButtonPressed()
+    {
+        GameObject.FindGameObjectWithTag("PauseMenu").SetActive(false);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<FPS_Movement_newinput>().paused = false;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<FPS_Camera_newinput>().SetCameraMove();
+    }
 }

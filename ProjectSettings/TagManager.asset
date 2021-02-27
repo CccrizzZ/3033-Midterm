@@ -4,15 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - stealingpoint
-  - sittingpoint
-  - pickuppoint
   - Ground
   - Trigger
   - SpawnPoint
   - Platform
   - Portal
   - GroundIndicator
+  - PauseMenu
   layers:
   - Default
   - TransparentFX

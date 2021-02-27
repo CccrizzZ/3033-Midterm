@@ -37,7 +37,7 @@ public class FPS_Camera_newinput : MonoBehaviour
         // lock cursor to the center of screen
         canLook = true;
         Cursor.lockState = CursorLockMode.Locked;
-    
+        Cursor.visible = false;
     }
 
     public void SetCameraFreeze()
@@ -45,6 +45,7 @@ public class FPS_Camera_newinput : MonoBehaviour
         // dont lock cursor
         canLook = false;
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
     }
 
@@ -80,13 +81,6 @@ public class FPS_Camera_newinput : MonoBehaviour
             transform.localRotation = Quaternion.Euler(0.0f, XRotation, 0.0f);
 
             // PlayerBody.Rotate(Vector3.up * MouseX);
-
-            
-
-
-
-        
-            
         }
     }
 
