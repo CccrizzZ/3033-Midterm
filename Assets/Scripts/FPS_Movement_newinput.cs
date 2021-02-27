@@ -1,6 +1,14 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+
+enum AudioArray
+{
+    platform,
+    portal,
+    respawn
+}
 
 
 public class FPS_Movement_newinput : MonoBehaviour
@@ -27,10 +35,12 @@ public class FPS_Movement_newinput : MonoBehaviour
 
     public GameObject PauseMenu;
 
+    
+    public AudioSource[] AUsource;
 
     void Start()
     {
-        
+        AUsource[(int)AudioArray.portal].Play();
         
         rbRef = GetComponent<Rigidbody>();
         
@@ -100,23 +110,26 @@ public class FPS_Movement_newinput : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
-        
-        // get input vector from input value
-        InputVector = value.Get<Vector2>();
-
-        if (InputVector.y > 0)
+        if (Time.timeScale == 1)
         {
-            animController.SetFloat("YMovement", InputVector.y * 0.25f);
+            
+            // get input vector from input value
+            InputVector = value.Get<Vector2>();
+
+            if (InputVector.y > 0)
+            {
+                animController.SetFloat("YMovement", InputVector.y * 0.25f);
+            }
+            else
+            {
+                animController.SetFloat("YMovement", InputVector.y * 0.5f);
+            }
+
+            animController.SetFloat("XMovement", InputVector.x * 0.5f);
+
+
+            // print(MoveDirection);
         }
-        else
-        {
-            animController.SetFloat("YMovement", InputVector.y * 0.5f);
-        }
-
-        animController.SetFloat("XMovement", InputVector.x * 0.5f);
-
-
-        // print(MoveDirection);
 
 
     }
@@ -144,7 +157,7 @@ public class FPS_Movement_newinput : MonoBehaviour
 
     public void OnJump(InputValue input)
     {
-        if(!isJumping && isGrounded)
+        if(!isJumping && isGrounded && Time.timeScale == 1)
         {
             // reset velocity
             rbRef.velocity = Vector3.zero;
@@ -169,6 +182,10 @@ public class FPS_Movement_newinput : MonoBehaviour
             return;
         }   
 
+        if(other.gameObject.CompareTag("Platform"))
+        {
+            AUsource[(int)AudioArray.platform].Play();
+        }
 
         if(other.gameObject.CompareTag("Ground")||other.gameObject.CompareTag("Platform"))
         {
@@ -201,16 +218,17 @@ public class FPS_Movement_newinput : MonoBehaviour
             paused = true;
             PauseMenu.SetActive(true);
             GetComponent<FPS_Camera_newinput>().SetCameraFreeze();
+            Time.timeScale = 0;
         }
         else
         {
             paused = false;
             PauseMenu.SetActive(false);
             GetComponent<FPS_Camera_newinput>().SetCameraMove();
-
+            Time.timeScale = 1;
+            Cursor.visible = false;
 
         }
-        print(paused);
     }
 
 
@@ -233,6 +251,7 @@ public class FPS_Movement_newinput : MonoBehaviour
         // {
         //     // Restart
         // }
+        AUsource[(int)AudioArray.respawn].Play();
 
         // reset all platform material
         var tempArray = GameObject.FindGameObjectsWithTag("Platform");

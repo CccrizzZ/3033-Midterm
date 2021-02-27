@@ -11,6 +11,7 @@ TagManager:
   - Portal
   - GroundIndicator
   - PauseMenu
+  - AudioPlayer
   layers:
   - Default
   - TransparentFX
