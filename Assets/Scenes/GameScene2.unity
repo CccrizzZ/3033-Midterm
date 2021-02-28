@@ -1813,6 +1813,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1698732733479324146, guid: f6f0a32b876a77d49854ab868e3e2ad5, type: 3}
+      propertyPath: mref
+      value: 
+      objectReference: {fileID: 8777128058695454191}
     - target: {fileID: 4001308156549527014, guid: f6f0a32b876a77d49854ab868e3e2ad5, type: 3}
       propertyPath: m_Name
       value: GamePlayCanvas
@@ -1907,6 +1911,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6f0a32b876a77d49854ab868e3e2ad5, type: 3}
+--- !u!1 &4001308157329931881 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3236008149625885099, guid: f6f0a32b876a77d49854ab868e3e2ad5, type: 3}
+  m_PrefabInstance: {fileID: 4001308157329931880}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8777128058695454190
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1926,6 +1935,10 @@ PrefabInstance:
       propertyPath: RunSpeed
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 8777128058622096455, guid: 3a38900c380d8d14ab5334238c7ac4d1, type: 3}
+      propertyPath: PauseMenu
+      value: 
+      objectReference: {fileID: 4001308157329931881}
     - target: {fileID: 8777128058622096455, guid: 3a38900c380d8d14ab5334238c7ac4d1, type: 3}
       propertyPath: WalkSpeed
       value: 8
@@ -1993,3 +2006,14 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7572585481795631672, guid: 3a38900c380d8d14ab5334238c7ac4d1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3a38900c380d8d14ab5334238c7ac4d1, type: 3}
+--- !u!114 &8777128058695454191 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8777128058622096455, guid: 3a38900c380d8d14ab5334238c7ac4d1, type: 3}
+  m_PrefabInstance: {fileID: 8777128058695454190}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3d57458f73b0804d8c8cd6d4842ba92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

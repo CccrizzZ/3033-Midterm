@@ -50,7 +50,7 @@ public class FPS_Movement_newinput : MonoBehaviour
         isRunning = false;
         canMove = true;
         paused = false;
-    
+        GetComponent<FPS_Camera_newinput>().SetCameraMove();
     }
 
 
@@ -213,6 +213,8 @@ public class FPS_Movement_newinput : MonoBehaviour
 
     void OnPause()
     {
+
+
         if (!paused)
         {
             paused = true;
@@ -220,18 +222,22 @@ public class FPS_Movement_newinput : MonoBehaviour
             GetComponent<FPS_Camera_newinput>().SetCameraFreeze();
             Time.timeScale = 0;
         }
-        else
-        {
-            paused = false;
-            PauseMenu.SetActive(false);
-            GetComponent<FPS_Camera_newinput>().SetCameraMove();
-            Time.timeScale = 1;
-            Cursor.visible = false;
 
+        else if(paused)
+        {
+            Unpause();
         }
+
     }
 
-
+    public void Unpause()
+    {
+        paused = false;
+        PauseMenu.SetActive(false);
+        GetComponent<FPS_Camera_newinput>().SetCameraMove();
+        Time.timeScale = 1;
+        Cursor.visible = false;
+    }
 
 
 
